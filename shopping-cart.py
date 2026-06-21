@@ -33,8 +33,6 @@ while True:
         print(f"Added {products[choice - 1][0]} to cart")
 
 
-print("succesfully out of the while loop")
-
 print("\n--- Receipt ---")
 total = 0
 for name, price in cart:
