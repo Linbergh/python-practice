@@ -17,20 +17,30 @@ for index, (name, price) in enumerate(products, start=1):
 cart = []
 
 while True:
-    choice = int(input("Enter product number to add to cart (or 0 to checkout): "))
 
-    if choice == 0:
-        break
-
-    if (
-        not 1 <= choice <= len(products)
-    ):  # If the user's choice is NOT between 1 and the number of products.
-        print("Product unavailable!")
+    try:
+        choice = int(input("Enter product number to add to cart (or 0 to checkout): "))
+    except ValueError:
+        print("Please enter the number next to the product!")
+    except Exception as e:
+        print(e)
     else:
-        cart.append(
-            products[choice - 1]
-        )  # -1 because list indexing starts at 0 (user starts at 1)
-        print(f"Added {products[choice - 1][0]} to cart")
+        if choice == 0:
+            if len(cart) == 0:
+                print("Your cart is empty!")
+            else:
+                break
+        elif (
+            not 1 <= choice <= len(products)
+        ):  # If the user's choice is NOT between 1 and the number of products.
+            print("Product unavailable!")
+        elif products[choice - 1] in cart:
+            print("Item already in cart!")
+        else:
+            cart.append(
+                products[choice - 1]
+            )  # -1 because list indexing starts at 0 (user starts at 1)
+            print(f"Added {products[choice - 1][0]} to cart")
 
 
 print("\n--- Receipt ---")
