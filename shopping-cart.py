@@ -9,24 +9,23 @@ products = [
     ("Rice", 2.10),
 ]
 
+
+print("Available Products:")
+for index, (name, price) in enumerate(products, start=1):
+    print(f"{index}. {name} - ${price:.2f}")
+
 cart = [products[0], products[2], products[6], products[3]]
 
-for index, product in enumerate(products, start=1):
-    print(f"{index}. {product[0]} - ${product[1]:.2f}")
-
-
-print("--- Receipt ---")
+print("\n--- Receipt ---")
 total = 0
-
-for items in cart:
-    print(f"{items[0]} - {items[1]}")
-    total += items[1]
-
+for name, price in cart:
+    print(f"{name} - ${price:.2f}")
+    total += price
 print("---------------")
 
+print(f"Total: ${total:.2f}")
+
 if total > 10:
-    print(f"Total: {total}")
+    discounted = total * 0.9
     print("You qualify for a 10% discount!")
-    print(f"Discounted Price: {total-(total*.1)}")
-else:
-    print(f"Total: {total}")
+    print(f"Discounted Price: ${discounted:.2f}")
