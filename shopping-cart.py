@@ -14,7 +14,26 @@ print("Available Products:")
 for index, (name, price) in enumerate(products, start=1):
     print(f"{index}. {name} - ${price:.2f}")
 
-cart = [products[0], products[2], products[6], products[3]]
+cart = []
+
+while True:
+    choice = int(input("Enter product number to add to cart (or 0 to checkout): "))
+
+    if choice == 0:
+        break
+
+    if (
+        not 1 <= choice <= len(products)
+    ):  # If the user's choice is NOT between 1 and the number of products.
+        print("Product unavailable!")
+    else:
+        cart.append(
+            products[choice - 1]
+        )  # -1 because list indexing starts at 0 (user starts at 1)
+        print(f"Added {products[choice - 1][0]} to cart")
+
+
+print("succesfully out of the while loop")
 
 print("\n--- Receipt ---")
 total = 0
