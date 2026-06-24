@@ -4,22 +4,32 @@ def deposit(amount):
 
     transaction.append((amount, "deposit"))
 
+    print(f"Deposited ${amount:.2f}")
+
 
 def withdraw(amount):
     global balance, transaction
-    balance -= amount
 
-    transaction.append((amount, "withdrawal"))
+    if balance < amount:
+        print("Insufficient funds!")
+    else:
+        balance -= amount
+
+        transaction.append((amount, "withdrawal"))
+
+        print(f"Withdrawn ${amount:.2f}")
 
 
-def get_balance(amount):
-    pass
+def get_balance():
+    global balance
+
+    print(f"\nRemaining balance: ${balance:.2f}")
 
 
-def transcation_history():
-    print("--- Transaction History ---")
+def transaction_history():
+    print("\n--- Transaction History ---")
     for amount, type in transaction:
-        if type == "Deposit":
+        if type == "deposit":
             print(f"+ ${amount:.2f} ({type})")
         else:
             print(f"- ${amount:.2f} ({type})")
@@ -31,5 +41,8 @@ transaction = []
 
 
 deposit(50)
-withdraw(25)
-transcation_history()
+deposit(100)
+withdraw(30)
+withdraw(200)
+transaction_history()
+get_balance()
