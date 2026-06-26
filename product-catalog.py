@@ -9,30 +9,65 @@ products = [
     {"name": "Rice", "price": 2.10, "category": "Grains", "stock": 40},
 ]
 
-
-def find_by_category(category):
-    pass
-
-
-def most_expensive(products):
-    pass
-
-
-def out_of_stock_soon(products):
-    pass
-
-
-def summary(products):
-    pass
-
-    # Total number of products
-
-    # Total combined stock across all products
-
-    # Average price across all products
-
-
+# printing all products
 for product in products:
     print(
-        f"{product["name"]} - ${product["price"]} | Category: {product["category"]} | Stock: {product["stock"]}"
+        f"{product["name"]} - ${product["price"]:.2f} | Category: {product["category"]} | Stock: {product["stock"]}"
     )
+
+
+def find_by_category(category):
+    print("\n----Products by category----")
+    for product in products:
+        if product["category"] == category:
+            print(
+                f"{product["name"]} - ${product["price"]:.2f} | Category: {product["category"]} | Stock: {product["stock"]}"
+            )
+
+
+def most_expensive():
+    prices = []
+
+    for product in products:
+        prices.append(product["price"])
+
+    most_expensive_product = max(prices)
+    product_name = products[prices.index(most_expensive_product)]["name"]
+
+    print(f"\nMost expensive: {product_name} at ${most_expensive_product:.2f}")
+
+
+def out_of_stock_soon():
+    print("\n----Low Stock----")
+    for product in products:
+        if product["stock"] <= 10:
+            print(
+                f"Low stock warning: {product["name"]} ({product["stock"]} remaining)"
+            )
+
+
+def summary():
+    prices = []
+    total_stocks = 0
+
+    for product in products:
+        total_stocks += product["stock"]
+        prices.append(product["price"])
+
+    print("\n----Summary----")
+
+    # Total number of products
+    print(f"Total number of products: {len(products)}")
+
+    # Total combined stock across all products
+    print(f"Total stocks combined: {total_stocks}")
+
+    # Average price across all products
+    average_price = round(sum(prices) / len(prices), 2)
+    print(f"Average price: ${average_price:.2f}")
+
+
+find_by_category("Dairy")
+most_expensive()
+out_of_stock_soon()
+summary()
