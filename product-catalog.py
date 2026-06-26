@@ -8,3 +8,31 @@ products = [
     {"name": "Chicken", "price": 8.00, "category": "Meat", "stock": 25},
     {"name": "Rice", "price": 2.10, "category": "Grains", "stock": 40},
 ]
+
+
+def find_by_category(category):
+    pass
+
+
+def most_expensive(products):
+    pass
+
+
+def out_of_stock_soon(products):
+    pass
+
+
+def summary(products):
+    pass
+
+    # Total number of products
+
+    # Total combined stock across all products
+
+    # Average price across all products
+
+
+for product in products:
+    print(
+        f"{product["name"]} - ${product["price"]} | Category: {product["category"]} | Stock: {product["stock"]}"
+    )
