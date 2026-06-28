@@ -15,7 +15,7 @@ even_numbers = [num for num in numbers if num % 2 == 0]
 print(even_numbers)
 
 # Task 2: From numbers, create a new list where every number is squared.
-squared = [num * num for num in numbers]
+squared = [num * num for num in numbers]  # num ** 2 can replace num * num
 print(squared)
 
 # Task 3: From words, create a new list containing only words longer than 4 characters.
