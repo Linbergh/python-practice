@@ -55,7 +55,7 @@ def search_contact():
             matched = [
                 (index, contact)
                 for (index, contact) in enumerate(reader, start=1)
-                if contact["name"] == name
+                if contact["name"].lower() == name.lower()
             ]
 
             if matched:
