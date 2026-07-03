@@ -1,3 +1,6 @@
+NOTES_TXT = "notes.txt"
+
+
 def print_options(actions):
     print("\n----- Notes App -----")
 
@@ -8,7 +11,7 @@ def print_options(actions):
 def add_note():
     note = input("\nEnter note: ")
 
-    with open("notes.txt", "a") as notes_file:
+    with open(NOTES_TXT, "a") as notes_file:
         notes_file.write(f"{note}\n")
 
 
@@ -16,10 +19,10 @@ def view_notes():
     try:
         print("\n----- Your Notes -----")
 
-        with open("notes.txt", "r") as notes_file:
+        with open(NOTES_TXT, "r") as notes_file:
             reader = notes_file.readlines()
 
-            if len(reader) <= 0:
+            if not reader:
                 print("\nNo notes yet!")
             else:
                 for number, line in enumerate(reader, start=1):
@@ -31,7 +34,7 @@ def view_notes():
 
 def clear_notes():
     try:
-        with open("notes.txt", "r") as file:
+        with open(NOTES_TXT, "r") as file:
             content = file.read()
 
             if not content:
@@ -41,7 +44,7 @@ def clear_notes():
         answer = input("\nAre you sure? (yes/no): ").strip()
 
         if answer.lower() == "yes":
-            with open("notes.txt", "w") as notes_file:
+            with open(NOTES_TXT, "w") as notes_file:
                 notes_file.write("")
             print("\nNotes cleared!")
         else:
