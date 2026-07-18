@@ -20,16 +20,28 @@ questions = [
 ]
 
 
-def load_score():
+def load_score(csv_file):
     try:
-        with open(CSV_FILE, "r") as score_file:
+        with open(csv_file, "r") as score_file:
             return list(csv.DictReader(score_file))
     except FileNotFoundError:
         return []
 
 
-def get_questions(questions, total_questions):
-    return random.sample(questions, k=total_questions)
+def past_scores():
+    scores = load_score(CSV_FILE)
+
+    if not scores:
+        print("No previous results.")
+    else:
+        print("\n--- Past Results ---")
+        for index, score in enumerate(scores, start=1):
+            date = score["date"]
+            result = score["score"]
+            total = score["total"]
+            duration = score["timetaken"]
+
+            print(f"{index}. Date: {date} | Score: {result}/{total} | Time: {duration}")
 
 
 def time_taken(duration):
@@ -48,39 +60,59 @@ def time_taken(duration):
     return duration_str
 
 
-def print_score(score, duration):
+def get_questions(questions):
+    return random.sample(questions, k=TOTAL_QUESTIONS)
 
-    print("\n--- Quiz Complete ---")
-    print(f"Score: {score}/{TOTAL_QUESTIONS}")
-    print(f"Time taken: {duration}")
+
+def save_score(score, duration, date_taken):
+
+    with open(CSV_FILE, "a", newline="") as score_file:
+        fieldnames = ["date", "score", "total", "timetaken"]
+        writer = csv.DictWriter(score_file, fieldnames=fieldnames)
+        with_content = score_file.tell()
+
+        if not with_content:
+            writer.writeheader()
+
+        writer.writerow(
+            {
+                "date": date_taken,
+                "score": score,
+                "total": TOTAL_QUESTIONS,
+                "timetaken": duration,
+            }
+        )
 
 
 def take_quiz(questions_list):
     score = 0
     start = datetime.datetime.now()
+    date = datetime.date.today()
 
-    for question in questions_list:
-        answer = input(f"\n{question["question"]} ").lower()
+    print("\n--- Quiz ---")
+
+    for index, question in enumerate(questions_list, start=1):
+        answer = input(f"{index}. {question["question"]} ").lower()
 
         if answer == question["answer"].lower():
-            print("Correct!")
+            print("Correct!\n")
             score += 1
         else:
-            print(f"The correct anwer is {question["answer"]}")
+            print(f"The correct answer is {question["answer"]}\n")
 
     end = datetime.datetime.now()
 
     duration = end - start
     duration_str = time_taken(duration)
-    print_score(score, duration_str)
+
+    print("--- Quiz Complete ---")
+    print(f"Score: {score}")
+    print(f"Time taken: {duration_str}")
+    print(f"Date completed: {date}")
+
+    save_score(score, duration_str, date)
 
 
-def check_score():
-    scores = load_score()
-
-    if not scores:
-        print("\nFile not found!")
-
-
-questions_list = get_questions(questions, TOTAL_QUESTIONS)
+past_scores()
+questions_list = get_questions(questions)
 take_quiz(questions_list)
