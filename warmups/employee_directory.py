@@ -8,7 +8,9 @@ employees = [
     {"name": "Grace", "department": "Engineering", "salary": 102000, "years": 10},
     {"name": "Hank", "department": "Marketing", "salary": 59000, "years": 4},
 ]
-departments = {department["department"].lower() for department in employees}
+
+
+departments = {employee["department"].lower() for employee in employees}
 
 
 def print_section(header, employees):
@@ -37,24 +39,25 @@ def print_highest_lowest_paid_employee(employees):
 
 
 def print_average_salary_accross_employees(employees):
-    salaries = [salary["salary"] for salary in employees]
-    averaga_salary = get_average(salaries)
+    salaries = [employee["salary"] for employee in employees]
+    average_salary = get_average(salaries)
 
     print("\n--- Average salary ---")
-    print(f"Average salary: {averaga_salary:,.2f}")
+    print(f"Average salary: {average_salary:,.2f}")
 
 
-def ask_print_department(employees, departments):
+def ask_print_department(employees):
     given_department = input("\nEnter department: ").lower()
-    filtered_employees_by_department = []
 
-    if given_department not in departments:
+    filtered_employees_by_department = [
+        employee
+        for employee in employees
+        if given_department == employee["department"].lower()
+    ]
+
+    if not filtered_employees_by_department:
         print("Department not found!")
         return
-
-    for emp in employees:
-        if given_department == emp["department"].lower():
-            filtered_employees_by_department.append(emp)
 
     print_section(
         f"Employees in the {given_department.capitalize()} department",
@@ -63,14 +66,20 @@ def ask_print_department(employees, departments):
 
 
 def print_department_summary(employees, departments):
+    print("\n--- Department summary ---")
     for department in departments:
-        salaries = [salaries["salary"] for salaries in employees]
-        average_salary = get_average(salaries)
-        print(average_salary)
+        salaries = [
+            employee["salary"]
+            for employee in employees
+            if employee["department"].lower() == department.lower()
+        ]
+        avg = get_average(salaries)
+
+        print(f"{department.title()}: ${avg:,.2f}")
 
 
-# print_employees_sorted_by_salary(employees)
-# print_highest_lowest_paid_employee(employees)
-# print_average_salary_accross_employees(employees)
-# ask_print_department(employees, departments)
+print_employees_sorted_by_salary(employees)
+print_highest_lowest_paid_employee(employees)
+print_average_salary_accross_employees(employees)
+ask_print_department(employees)
 print_department_summary(employees, departments)
