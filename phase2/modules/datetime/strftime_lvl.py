@@ -1,11 +1,28 @@
 import datetime
 
-meeting = datetime.datetime(2026, 8, 15, 14, 45, 30)
+meeting = datetime.datetime(2026, 8, 11, 14, 45, 30)
 
 date_formats = ["%m/%d/%Y", "%d/%m/%Y", "%B %d, %Y", "%b %d, %Y"]
 time_formats = ["%H:%M", "%H:%M:%S", "%I:%M %p", "%I:%M:%S %p"]
 full_date_time_formats = ["%A, %B %d, %Y", "%A, %B %d, %Y at %I:%M %p"]
-own_formats = ["%Y/%B/%d", "%a - %b %d", "%B, %Y", "%dth of %B, %Y"]
+# own_formats = ["%Y/%B/%d", "%a - %b %d", "%B, %Y", "%dth of %B, %Y"]
+
+
+def get_suffix(day):
+    suffix = {1: "st", 2: "nd", 3: "rd"}
+
+    if 11 <= (day % 100) <= 13:
+        return "th"
+
+    return suffix.get(day % 10, "th")
+
+
+own_formats = [
+    "%Y/%B/%d",
+    "%a - %b %d",
+    "%B, %Y",
+    f"%d{get_suffix(meeting.day)} of %B, %Y",
+]
 
 
 #  challenge 1. Basic Formatting
