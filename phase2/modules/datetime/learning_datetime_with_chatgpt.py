@@ -1,6 +1,6 @@
 import datetime
 
-today = datetime.datetime.today()
+today = datetime.datetime.now(datetime.UTC)
 
 # today's date
 print(f"\nToday's date: {today.date()}")
