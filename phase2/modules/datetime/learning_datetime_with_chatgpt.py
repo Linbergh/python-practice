@@ -16,12 +16,12 @@ print(f"Month: {my_birthday.month}")
 print(f"Day: {my_birthday.day}")
 
 # appointment
-appointment = datetime.datetime(2026, 12, 25, 20, 30)
+appointment = datetime.datetime(2026, 12, 25, 20, 30, tzinfo=datetime.timezone.utc)
 print(f"\nAppointment date: {appointment.strftime('%B %d, %Y')}")
 print(f"Appointment time: {appointment.strftime('%I:%M %p')}")
 
 
-meeting = datetime.datetime(2026, 8, 15, 14, 45, 30)
+meeting = datetime.datetime(2026, 8, 15, 14, 45, 30, tzinfo=datetime.timezone.utc)
 print("\n--- meeting details ---")
 print(f"year: {meeting.year}")
 print(f"month: {meeting.month}")

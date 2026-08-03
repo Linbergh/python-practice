@@ -1,6 +1,6 @@
 import datetime
 
-meeting = datetime.datetime(2026, 8, 11, 14, 45, 30)
+meeting = datetime.datetime(2026, 8, 11, 14, 45, 30, tzinfo=datetime.timezone.utc)
 
 date_formats = ["%m/%d/%Y", "%d/%m/%Y", "%B %d, %Y", "%b %d, %Y"]
 time_formats = ["%H:%M", "%H:%M:%S", "%I:%M %p", "%I:%M:%S %p"]
